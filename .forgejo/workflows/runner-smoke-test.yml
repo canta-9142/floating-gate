@@ -2,7 +2,8 @@ name: Runner smoke test
 
 on:
   push:
-    branches: [main]
+    branches: 
+      - main
   workflow_dispatch: {}
  jobs:
    smoke-test:
