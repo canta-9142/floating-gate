@@ -1,5 +1,4 @@
 name: Runner smoke test
-
 on:
   push:
     branches:
