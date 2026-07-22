@@ -22,6 +22,9 @@ jobs:
       - name: Check out repository
         # actions/checkout v4.2.2; pinned for supply-chain stability.
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          # The runner polls Forgejo on 127.0.0.1, which is not the host from inside the job container.
+          github-server-url: https://forgejo.floating-gate.com
 
       - name: Install dependencies
         run: ./scripts/ci/install-dependencies.sh
