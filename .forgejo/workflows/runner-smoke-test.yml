@@ -4,15 +4,16 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
     
-  jobs:
-    smoke-test:
-      runs-on: node-22
-      steps:
-        - name: Show environment
-          run: |
-            echo "Forgejo Runner is working"
-            node --version
-            npm --version
-            uname -m
-            cat /etc/os-release
+ jobs:
+   smoke-test:
+    runs-on: node-22
+    steps:
+      - name: Show environment
+        run: |
+          echo "Forgejo Runner is working"
+          node --version
+          npm --version
+          uname -m
+          cat /etc/os-release
