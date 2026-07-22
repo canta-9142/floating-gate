@@ -2,12 +2,13 @@ name: Runner smoke test
 
 on:
   push:
-    branches: 
-      - main
+    branches: [main]
   workflow_dispatch: {}
- jobs:
-   smoke-test:
+
+jobs:
+  smoke-test:
     runs-on: node-22
+
     steps:
       - name: Show environment
         run: |
