@@ -2,9 +2,8 @@ name: Runner smoke test
 
 on:
   push:
-    branches:
-      - main
-  workflow_dispatch:
+    branches: [main]
+  workflow_dispatch: {}
  jobs:
    smoke-test:
     runs-on: node-22
