@@ -1,0 +1,35 @@
+name: Deploy production
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: {}
+
+concurrency:
+  group: floating-gate-production
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    if: github.ref == 'refs/heads/main'
+    runs-on: node-22
+    timeout-minutes: 30
+
+    steps:
+      - name: Check out repository
+        # actions/checkout v4.2.2; pinned for supply-chain stability.
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+
+      - name: Install dependencies
+        run: ./scripts/ci/install-dependencies.sh
+
+      - name: Build Astro site
+        run: ./scripts/ci/build.sh
+
+      - name: Publish release
+        env:
+          DEPLOY_COMMIT_SHA: ${{ github.sha }}
+        run: ./scripts/ci/deploy.sh
