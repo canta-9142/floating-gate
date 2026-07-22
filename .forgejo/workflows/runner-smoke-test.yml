@@ -5,11 +5,9 @@ on:
     branches:
       - main
     workflow_dispatch:
-
   jobs:
     smoke-test:
       runs-on: node-22
-
       steps:
         - name: Show environment
           run: |
