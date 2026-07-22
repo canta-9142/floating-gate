@@ -1,0 +1,43 @@
+---
+import MainNavigation from './MainNavigation.astro';
+---
+
+<header>
+	<div class="header-inner">
+		<a class="site-name" href="/" aria-label="Floating-Gate.com ホーム">Floating-Gate.com</a>
+		<MainNavigation />
+	</div>
+</header>
+
+<style>
+	header {
+		border-bottom: 1px solid var(--faint);
+	}
+
+	.header-inner {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1rem 2rem;
+		width: min(calc(100% - 2rem), var(--wide));
+		min-height: 4.5rem;
+		margin-inline: auto;
+	}
+
+	.site-name {
+		color: var(--text);
+		font-size: 1rem;
+		font-weight: 650;
+		letter-spacing: 0.025em;
+		text-decoration: none;
+	}
+
+	@media (max-width: 32rem) {
+		.header-inner {
+			align-items: flex-start;
+			flex-direction: column;
+			width: calc(100% - 1.5rem);
+			padding-block: 0.85rem;
+		}
+	}
+</style>

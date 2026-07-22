@@ -1,0 +1,52 @@
+---
+import { NAV_ITEMS } from '../config';
+
+const pathname = Astro.url.pathname;
+---
+
+<nav aria-label="メインナビゲーション">
+	<ul>
+		{
+			NAV_ITEMS.map((item) => {
+				const isCurrent = item.href === '/' ? pathname === '/' : pathname.startsWith(item.href);
+				return (
+					<li>
+						<a href={item.href} aria-current={isCurrent ? 'page' : undefined}>
+							{item.label}
+						</a>
+					</li>
+				);
+			})
+		}
+	</ul>
+</nav>
+
+<style>
+	ul {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.3rem 1.1rem;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	a {
+		padding-block: 0.3rem;
+		color: var(--muted);
+		font-size: 0.9rem;
+		text-decoration: none;
+	}
+
+	a:hover,
+	a[aria-current='page'] {
+		color: var(--text);
+	}
+
+	a[aria-current='page'] {
+		text-decoration: underline;
+		text-decoration-color: var(--accent);
+		text-decoration-thickness: 2px;
+		text-underline-offset: 0.4rem;
+	}
+</style>

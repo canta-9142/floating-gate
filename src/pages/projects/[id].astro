@@ -1,0 +1,114 @@
+---
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import ExternalLink from '../../components/ExternalLink.astro';
+import PostList from '../../components/PostList.astro';
+import ProjectStatus from '../../components/ProjectStatus.astro';
+import ProseLayout from '../../components/ProseLayout.astro';
+import Layout from '../../layouts/Layout.astro';
+import {
+	formatDate,
+	getPublishedPosts,
+	projectTitle,
+	toDateTime,
+} from '../../utils/content';
+
+export async function getStaticPaths() {
+	const projects = await getCollection('projects');
+	return projects.map((project) => ({ params: { id: project.id }, props: { project } }));
+}
+
+interface Props {
+	project: CollectionEntry<'projects'>;
+}
+
+const { project } = Astro.props;
+const { Content } = await render(project);
+const relatedIds = new Set(project.data.relatedPosts?.map((reference) => reference.id) ?? []);
+const relatedPosts = (await getPublishedPosts()).filter((post) => relatedIds.has(post.id));
+const title = projectTitle(project);
+---
+
+<Layout
+	title={title}
+	description={project.data.description ?? `${title} の制作記録。`}
+	image={project.data.cover?.src}
+>
+	<article class="article">
+		<header class="article-header">
+			<ProjectStatus status={project.data.status} />
+			<h1>{title}</h1>
+			{project.data.description && <p class="article-summary">{project.data.description}</p>}
+
+			{
+				(project.data.startedAt || project.data.updatedAt || project.data.technologies) && (
+					<dl class="project-details">
+						{project.data.startedAt && (
+							<div>
+								<dt>開始</dt>
+								<dd>
+									<time datetime={toDateTime(project.data.startedAt)}>
+										{formatDate(project.data.startedAt)}
+									</time>
+								</dd>
+							</div>
+						)}
+						{project.data.updatedAt && (
+							<div>
+								<dt>最終更新</dt>
+								<dd>
+									<time datetime={toDateTime(project.data.updatedAt)}>
+										{formatDate(project.data.updatedAt)}
+									</time>
+								</dd>
+							</div>
+						)}
+						{project.data.technologies && project.data.technologies.length > 0 && (
+							<div>
+								<dt>使用技術</dt>
+								<dd>{project.data.technologies.join(' / ')}</dd>
+							</div>
+						)}
+					</dl>
+				)
+			}
+
+			{
+				(project.data.repository || project.data.demo) && (
+					<div class="project-links">
+						{project.data.repository && (
+							<ExternalLink href={project.data.repository}>リポジトリ</ExternalLink>
+						)}
+						{project.data.demo && <ExternalLink href={project.data.demo}>デモ</ExternalLink>}
+					</div>
+				)
+			}
+
+			{
+				project.data.cover && (
+					<img
+						class="article-cover"
+						src={project.data.cover.src}
+						alt={project.data.cover.alt}
+						width="1200"
+						height="675"
+						loading="eager"
+						fetchpriority="high"
+					/>
+				)
+			}
+		</header>
+
+		<ProseLayout>
+			<Content />
+		</ProseLayout>
+	</article>
+
+	{
+		relatedPosts.length > 0 && (
+			<aside class="related-content article" aria-labelledby="related-posts">
+				<h2 id="related-posts">関連記事</h2>
+				<PostList posts={relatedPosts} headingLevel={3} />
+			</aside>
+		)
+	}
+</Layout>

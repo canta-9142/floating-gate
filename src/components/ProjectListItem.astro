@@ -1,0 +1,34 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { formatDate, projectTitle, toDateTime } from '../utils/content';
+import ProjectStatus from './ProjectStatus.astro';
+
+interface Props {
+	project: CollectionEntry<'projects'>;
+	headingLevel?: 2 | 3;
+}
+
+const { project, headingLevel = 2 } = Astro.props;
+const Heading = headingLevel === 2 ? 'h2' : 'h3';
+---
+
+<article class="project-list-item">
+	<div class="project-meta">
+		<ProjectStatus status={project.data.status} />
+		{
+			project.data.updatedAt && (
+				<span class="metadata">
+					最終更新{' '}
+					<time datetime={toDateTime(project.data.updatedAt)}>{formatDate(project.data.updatedAt)}</time>
+				</span>
+			)
+		}
+	</div>
+	<Heading><a href={`/projects/${project.id}/`}>{projectTitle(project)}</a></Heading>
+	{project.data.description && <p class="item-description">{project.data.description}</p>}
+	{
+		project.data.technologies && project.data.technologies.length > 0 && (
+			<p class="project-tech">{project.data.technologies.join(' / ')}</p>
+		)
+	}
+</article>

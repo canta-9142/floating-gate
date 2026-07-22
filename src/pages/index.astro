@@ -1,11 +1,54 @@
 ---
-import Welcome from '../components/Welcome.astro';
+import PostList from '../components/PostList.astro';
+import ProjectStatus from '../components/ProjectStatus.astro';
+import { PROFILE } from '../config';
 import Layout from '../layouts/Layout.astro';
+import { getPublishedPosts, getSortedProjects, projectTitle } from '../utils/content';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const posts = (await getPublishedPosts()).slice(0, 5);
+const featuredProjects = (await getSortedProjects()).filter(({ data }) => data.featured).slice(0, 3);
 ---
 
 <Layout>
-	<Welcome />
+	<header class="home-intro">
+		<h1>Floating-Gate.com</h1>
+		<p>{PROFILE.introduction}</p>
+	</header>
+
+	<div class="home-grid">
+		<section aria-labelledby="latest-posts">
+			<div class="section-heading">
+				<h2 id="latest-posts">最新の記事</h2>
+				<a href="/posts/">記事一覧を見る</a>
+			</div>
+			<PostList posts={posts} headingLevel={3} />
+		</section>
+
+		<aside class="home-sidebar" aria-label="ブログについて">
+			<section>
+				<h2>このブログについて</h2>
+				<p>電子回路とソフトウェアを行き来しながら、作ったものと学んだことを記録しています。</p>
+				<a href="/about/">詳しい自己紹介</a>
+			</section>
+
+			{
+				featuredProjects.length > 0 && (
+					<section>
+						<h2>いま見てほしい制作物</h2>
+						<ul class="plain-list featured-projects">
+							{featuredProjects.map((project) => (
+								<li>
+									<a href={`/projects/${project.id}/`}>{projectTitle(project)}</a>
+									<div>
+										<ProjectStatus status={project.data.status} />
+									</div>
+								</li>
+							))}
+						</ul>
+						<p><a href="/projects/">制作物の一覧を見る</a></p>
+					</section>
+				)
+			}
+		</aside>
+	</div>
 </Layout>

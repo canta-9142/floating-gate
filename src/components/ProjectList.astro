@@ -1,0 +1,25 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import ProjectListItem from './ProjectListItem.astro';
+
+interface Props {
+	projects: CollectionEntry<'projects'>[];
+	headingLevel?: 2 | 3;
+}
+
+const { projects, headingLevel = 2 } = Astro.props;
+---
+
+{
+	projects.length > 0 ? (
+		<ul class="project-list">
+			{projects.map((project) => (
+				<li>
+					<ProjectListItem project={project} headingLevel={headingLevel} />
+				</li>
+			))}
+		</ul>
+	) : (
+		<p>掲載している制作物はまだありません。</p>
+	)
+}

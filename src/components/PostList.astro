@@ -1,0 +1,25 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import PostListItem from './PostListItem.astro';
+
+interface Props {
+	posts: CollectionEntry<'posts'>[];
+	headingLevel?: 2 | 3;
+}
+
+const { posts, headingLevel = 2 } = Astro.props;
+---
+
+{
+	posts.length > 0 ? (
+		<ul class="post-list">
+			{posts.map((post) => (
+				<li>
+					<PostListItem post={post} headingLevel={headingLevel} />
+				</li>
+			))}
+		</ul>
+	) : (
+		<p>公開されている記事はまだありません。</p>
+	)
+}

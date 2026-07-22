@@ -1,0 +1,34 @@
+---
+import { SITE } from '../config';
+
+const year = new Date().getFullYear();
+---
+
+<footer>
+	<div class="footer-inner">
+		<p>&copy; {year} {SITE.author}</p>
+		<p><a href="/rss.xml">RSS</a> · 作ったものと学んだことの記録</p>
+	</div>
+</footer>
+
+<style>
+	footer {
+		border-top: 1px solid var(--faint);
+		color: var(--muted);
+		font-size: 0.82rem;
+	}
+
+	.footer-inner {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+		gap: 0.25rem 1.5rem;
+		width: min(calc(100% - 2rem), var(--wide));
+		margin-inline: auto;
+		padding-block: 1.75rem;
+	}
+
+	p {
+		margin: 0;
+	}
+</style>

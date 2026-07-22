@@ -1,0 +1,17 @@
+---
+import { formatDate, postTypeLabels, toDateTime } from '../utils/content';
+
+interface Props {
+	publishedAt: Date;
+	updatedAt: Date;
+	type: keyof typeof postTypeLabels;
+}
+
+const { publishedAt, updatedAt, type } = Astro.props;
+---
+
+<p class="metadata">
+	<span class="type-label">{postTypeLabels[type]}</span>
+	<span>公開 <time datetime={toDateTime(publishedAt)}>{formatDate(publishedAt)}</time></span>
+	<span>更新 <time datetime={toDateTime(updatedAt)}>{formatDate(updatedAt)}</time></span>
+</p>

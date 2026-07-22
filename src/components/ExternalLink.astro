@@ -1,0 +1,13 @@
+---
+interface Props {
+	href: string;
+}
+
+const { href } = Astro.props;
+---
+
+<a href={href} target="_blank" rel="noreferrer">
+	<slot />
+	<span class="external-mark" aria-hidden="true">↗</span>
+	<span class="visually-hidden">（外部サイト、新しいタブで開きます）</span>
+</a>

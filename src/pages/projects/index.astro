@@ -1,0 +1,17 @@
+---
+import ProjectList from '../../components/ProjectList.astro';
+import Layout from '../../layouts/Layout.astro';
+import { getSortedProjects } from '../../utils/content';
+
+const projects = await getSortedProjects();
+---
+
+<Layout title="制作物" description="完成したものと、まだ途中にある制作物の記録。">
+	<header class="page-header">
+		<h1>Projects</h1>
+		<p>完成したものだけでなく、設計中、実験中、いったん止めているものも置いています。</p>
+	</header>
+	<section class="narrow" aria-label="制作物一覧">
+		<ProjectList projects={projects} />
+	</section>
+</Layout>

@@ -1,0 +1,59 @@
+---
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import ArticleMetadata from '../../components/ArticleMetadata.astro';
+import ProjectList from '../../components/ProjectList.astro';
+import ProseLayout from '../../components/ProseLayout.astro';
+import TagList from '../../components/TagList.astro';
+import Layout from '../../layouts/Layout.astro';
+import { getSortedProjects } from '../../utils/content';
+
+export async function getStaticPaths() {
+	const posts = await getCollection('posts', ({ data }) => !import.meta.env.PROD || !data.draft);
+	return posts.map((post) => ({ params: { id: post.id }, props: { post } }));
+}
+
+interface Props {
+	post: CollectionEntry<'posts'>;
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const projects = (await getSortedProjects()).filter((project) =>
+	project.data.relatedPosts?.some((reference) => reference.id === post.id),
+);
+
+---
+
+<Layout
+	title={post.data.title}
+	description={post.data.description}
+	article
+	publishedAt={post.data.publishedAt}
+	updatedAt={post.data.updatedAt}
+	tags={post.data.tags}
+>
+	<article class="article">
+		<header class="article-header">
+			<h1>{post.data.title}</h1>
+			<p class="article-summary">{post.data.description}</p>
+			<ArticleMetadata
+				publishedAt={post.data.publishedAt}
+				updatedAt={post.data.updatedAt}
+				type={post.data.type}
+			/>
+			<TagList tags={post.data.tags} />
+		</header>
+		<ProseLayout>
+			<Content />
+		</ProseLayout>
+	</article>
+
+	{
+		projects.length > 0 && (
+			<aside class="related-content article" aria-labelledby="related-projects">
+				<h2 id="related-projects">関連する制作物</h2>
+				<ProjectList projects={projects} headingLevel={3} />
+			</aside>
+		)
+	}
+</Layout>

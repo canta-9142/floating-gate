@@ -1,23 +1,62 @@
+---
+import SiteFooter from '../components/SiteFooter.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import { SITE } from '../config';
+import '../styles/global.css';
+
+interface Props {
+	title?: string;
+	description?: string;
+	image?: string;
+	article?: boolean;
+	publishedAt?: Date;
+	updatedAt?: Date;
+	tags?: string[];
+}
+
+const {
+	title,
+	description = SITE.description,
+	image,
+	article = false,
+	publishedAt,
+	updatedAt,
+	tags = [],
+} = Astro.props;
+const pageTitle = title ? `${title} | ${SITE.title}` : SITE.title;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin);
+const imageURL = image ? new URL(image, Astro.site ?? Astro.url.origin) : undefined;
+---
+
 <!doctype html>
-<html lang="en">
+<html lang="ja">
 	<head>
 		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
+		<meta name="description" content={description} />
+		<meta name="theme-color" content="#f8f8f6" media="(prefers-color-scheme: light)" />
+		<meta name="theme-color" content="#171a1b" media="(prefers-color-scheme: dark)" />
+		<link rel="canonical" href={canonicalURL} />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="alternate" type="application/rss+xml" title={SITE.title} href="/rss.xml" />
+		<meta property="og:type" content={article ? 'article' : 'website'} />
+		<meta property="og:site_name" content={SITE.title} />
+		<meta property="og:title" content={pageTitle} />
+		<meta property="og:description" content={description} />
+		<meta property="og:url" content={canonicalURL} />
+		{imageURL && <meta property="og:image" content={imageURL} />}
+		{article && publishedAt && <meta property="article:published_time" content={publishedAt.toISOString()} />}
+		{article && updatedAt && <meta property="article:modified_time" content={updatedAt.toISOString()} />}
+		{article && tags.map((tag) => <meta property="article:tag" content={tag} />)}
+		<title>{pageTitle}</title>
 	</head>
 	<body>
-		<slot />
+		<a class="skip-link" href="#main-content">本文へ移動</a>
+		<SiteHeader />
+		<main id="main-content" class="site-main">
+			<slot />
+		</main>
+		<SiteFooter />
 	</body>
 </html>
-
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
-</style>

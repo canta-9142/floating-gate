@@ -1,0 +1,24 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import ArticleMetadata from './ArticleMetadata.astro';
+import TagList from './TagList.astro';
+
+interface Props {
+	post: CollectionEntry<'posts'>;
+	headingLevel?: 2 | 3;
+}
+
+const { post, headingLevel = 2 } = Astro.props;
+const Heading = headingLevel === 2 ? 'h2' : 'h3';
+---
+
+<article class="post-list-item">
+	<ArticleMetadata
+		publishedAt={post.data.publishedAt}
+		updatedAt={post.data.updatedAt}
+		type={post.data.type}
+	/>
+	<Heading><a href={`/posts/${post.id}/`}>{post.data.title}</a></Heading>
+	<p class="item-description">{post.data.description}</p>
+	<TagList tags={post.data.tags} />
+</article>

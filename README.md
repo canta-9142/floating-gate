@@ -1,46 +1,28 @@
-# Astro Starter Kit: Basics
+# Floating-Gate.com
 
-```sh
-npm create astro@latest -- --template basics
-```
+電子回路、組み込みシステム、ソフトウェア、Linux、Homelabについて、作ったものと学んだことを記録する個人ブログです。
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## 構成
 
-## 🚀 Project Structure
+- Astro 7
+- Astro Content Collections
+- Markdown / MDX
+- 追加のUIフレームワーク、クライアントJavaScriptなし
 
-Inside of your Astro project, you'll see the following folders and files:
+記事は `src/content/posts/`、制作物は `src/content/projects/` で管理します。スキーマは `src/content.config.ts` にあります。
 
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
-```
+サイトURL、サイト名、プロフィール文、外部プロフィールは `astro.config.mjs` と `src/config.ts` から変更できます。
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+## コマンド
 
-## 🧞 Commands
+| コマンド | 内容 |
+| --- | --- |
+| `npm install` | 依存関係をインストール |
+| `npm run dev -- --background` | 開発サーバーをバックグラウンドで起動 |
+| `npm run astro -- dev status` | 開発サーバーの状態を確認 |
+| `npm run astro -- dev logs` | 開発サーバーのログを確認 |
+| `npm run astro -- dev stop` | 開発サーバーを停止 |
+| `npm run check` | Astro / TypeScript の型チェック |
+| `npm run build` | 本番用の静的サイトを生成 |
 
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+lint、format、単体テスト用のツールは、現在は設定していません。

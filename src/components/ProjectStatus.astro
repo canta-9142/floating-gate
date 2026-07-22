@@ -1,0 +1,17 @@
+---
+import { projectStatusLabels } from '../utils/content';
+
+interface Props {
+	status?: keyof typeof projectStatusLabels;
+}
+
+const { status } = Astro.props;
+---
+
+{
+	status && (
+		<span class="status" data-status={status}>
+			{projectStatusLabels[status]}
+		</span>
+	)
+}
