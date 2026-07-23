@@ -10,8 +10,8 @@ interface Props {
 const { publishedAt, updatedAt, type } = Astro.props;
 ---
 
-<p class="metadata">
-	<span class="type-label">{postTypeLabels[type]}</span>
+<p class="m-0 flex flex-wrap gap-x-3.5 gap-y-1 text-[0.82rem] text-site-muted">
+	<span class="font-semibold text-site-accent-strong">{postTypeLabels[type]}</span>
 	<span>公開 <time datetime={toDateTime(publishedAt)}>{formatDate(publishedAt)}</time></span>
 	<span>更新 <time datetime={toDateTime(updatedAt)}>{formatDate(updatedAt)}</time></span>
 </p>

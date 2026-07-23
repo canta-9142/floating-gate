@@ -3,9 +3,13 @@ import Layout from '../layouts/Layout.astro';
 ---
 
 <Layout title="ページが見つかりません" description="指定されたページは見つかりませんでした。">
-	<div class="page-header">
-		<p class="type-label">404</p>
-		<h1>ページが見つかりません</h1>
-		<p>URLが変わったか、入力が違っているかもしれません。<a href="/">ホームへ戻る</a></p>
+	<div class="mb-12 max-w-[var(--measure)]">
+		<p class="m-0 font-semibold text-site-accent-strong">404</p>
+		<h1 class="mt-0 mb-3 text-[clamp(2rem,6vw,3rem)] leading-[1.15] font-semibold tracking-[-0.035em]">
+			ページが見つかりません
+		</h1>
+		<p class="m-0 text-[1.075rem] text-site-muted">
+			URLが変わったか、入力が違っているかもしれません。<a href="/">ホームへ戻る</a>
+		</p>
 	</div>
 </Layout>

@@ -10,7 +10,20 @@ const { status } = Astro.props;
 
 {
 	status && (
-		<span class="status" data-status={status}>
+		<span
+			class:list={[
+				'inline-flex items-center gap-1.5 text-[0.82rem] font-semibold text-site-muted',
+				status === 'In progress' && 'text-site-accent-strong',
+			]}
+			data-status={status}
+		>
+			<span
+				class:list={[
+					'h-2.5 w-2.5 rounded-full border-2 border-current',
+					status === 'Completed' && 'bg-current',
+				]}
+				aria-hidden="true"
+			/>
 			{projectStatusLabels[status]}
 		</span>
 	)

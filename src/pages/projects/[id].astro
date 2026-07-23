@@ -33,19 +33,21 @@ const title = projectTitle(project);
 	description={project.data.description ?? `${title} の制作記録。`}
 	image={project.data.cover?.src}
 >
-	<article class="article">
-		<header class="article-header">
+	<article class="max-w-[var(--measure)]">
+		<header class="mb-12">
 			<ProjectStatus status={project.data.status} />
-			<h1>{title}</h1>
-			{project.data.description && <p class="article-summary">{project.data.description}</p>}
+			<h1 class="mt-1 mb-3 text-[clamp(2rem,6vw,3rem)] leading-[1.15] font-semibold tracking-[-0.035em]">
+				{title}
+			</h1>
+			{project.data.description && <p class="m-0 text-[1.075rem] text-site-muted">{project.data.description}</p>}
 
 			{
 				(project.data.startedAt || project.data.updatedAt || project.data.technologies) && (
-					<dl class="project-details">
+					<dl class="mt-6 grid grid-cols-1 gap-x-8 gap-y-3 border-y border-site-faint py-5 min-[45rem]:grid-cols-2">
 						{project.data.startedAt && (
-							<div>
-								<dt>開始</dt>
-								<dd>
+							<div class="min-w-0">
+								<dt class="text-xs font-semibold text-site-muted">開始</dt>
+								<dd class="mt-0.5 mb-0">
 									<time datetime={toDateTime(project.data.startedAt)}>
 										{formatDate(project.data.startedAt)}
 									</time>
@@ -53,9 +55,9 @@ const title = projectTitle(project);
 							</div>
 						)}
 						{project.data.updatedAt && (
-							<div>
-								<dt>最終更新</dt>
-								<dd>
+							<div class="min-w-0">
+								<dt class="text-xs font-semibold text-site-muted">最終更新</dt>
+								<dd class="mt-0.5 mb-0">
 									<time datetime={toDateTime(project.data.updatedAt)}>
 										{formatDate(project.data.updatedAt)}
 									</time>
@@ -63,9 +65,9 @@ const title = projectTitle(project);
 							</div>
 						)}
 						{project.data.technologies && project.data.technologies.length > 0 && (
-							<div>
-								<dt>使用技術</dt>
-								<dd>{project.data.technologies.join(' / ')}</dd>
+							<div class="min-w-0">
+								<dt class="text-xs font-semibold text-site-muted">使用技術</dt>
+								<dd class="mt-0.5 mb-0 break-words">{project.data.technologies.join(' / ')}</dd>
 							</div>
 						)}
 					</dl>
@@ -74,7 +76,7 @@ const title = projectTitle(project);
 
 			{
 				(project.data.repository || project.data.demo) && (
-					<div class="project-links">
+					<div class="mt-4 flex flex-wrap gap-4">
 						{project.data.repository && (
 							<ExternalLink href={project.data.repository}>リポジトリ</ExternalLink>
 						)}
@@ -86,7 +88,7 @@ const title = projectTitle(project);
 			{
 				project.data.cover && (
 					<img
-						class="article-cover"
+						class="mt-7 block h-auto w-full border border-site-faint bg-site-surface"
 						src={project.data.cover.src}
 						alt={project.data.cover.alt}
 						width="1200"
@@ -105,8 +107,11 @@ const title = projectTitle(project);
 
 	{
 		relatedPosts.length > 0 && (
-			<aside class="related-content article" aria-labelledby="related-posts">
-				<h2 id="related-posts">関連記事</h2>
+			<aside
+				class="mt-16 max-w-[var(--measure)] border-t border-site-faint pt-6"
+				aria-labelledby="related-posts"
+			>
+				<h2 class="mt-0 mb-3 text-lg font-semibold" id="related-posts">関連記事</h2>
 				<PostList posts={relatedPosts} headingLevel={3} />
 			</aside>
 		)

@@ -12,23 +12,30 @@ const { project, headingLevel = 2 } = Astro.props;
 const Heading = headingLevel === 2 ? 'h2' : 'h3';
 ---
 
-<article class="project-list-item">
-	<div class="project-meta">
+<article class="py-6">
+	<div class="mb-1 flex flex-wrap items-center gap-x-4 gap-y-1">
 		<ProjectStatus status={project.data.status} />
 		{
 			project.data.updatedAt && (
-				<span class="metadata">
+				<span class="text-[0.82rem] text-site-muted">
 					最終更新{' '}
 					<time datetime={toDateTime(project.data.updatedAt)}>{formatDate(project.data.updatedAt)}</time>
 				</span>
 			)
 		}
 	</div>
-	<Heading><a href={`/projects/${project.id}/`}>{projectTitle(project)}</a></Heading>
-	{project.data.description && <p class="item-description">{project.data.description}</p>}
+	<Heading class="mt-1 mb-1.5 text-xl leading-snug font-semibold">
+		<a
+			class="text-site-text no-underline hover:text-site-accent-strong hover:underline"
+			href={`/projects/${project.id}/`}>{projectTitle(project)}</a
+		>
+	</Heading>
+	{project.data.description && <p class="mt-1.5 mb-3 text-site-muted">{project.data.description}</p>}
 	{
 		project.data.technologies && project.data.technologies.length > 0 && (
-			<p class="project-tech">{project.data.technologies.join(' / ')}</p>
+			<p class="mt-2.5 mb-0 text-[0.84rem] text-site-muted">
+				{project.data.technologies.join(' / ')}
+			</p>
 		)
 	}
 </article>

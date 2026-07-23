@@ -7,11 +7,15 @@ const posts = await getPublishedPosts();
 ---
 
 <Layout title="記事" description="制作ログ、技術メモ、制作物の設計、技術についての考察。">
-	<header class="page-header">
-		<h1>Posts</h1>
-		<p>制作中の記録、調べたこと、あとで参照したい技術メモなど。</p>
+	<header class="mb-12 max-w-[var(--measure)]">
+		<h1 class="mt-0 mb-3 text-[clamp(2rem,6vw,3rem)] leading-[1.15] font-semibold tracking-[-0.035em]">
+			Posts
+		</h1>
+		<p class="m-0 text-[1.075rem] text-site-muted">
+			制作中の記録、調べたこと、あとで参照したい技術メモなど。
+		</p>
 	</header>
-	<section class="narrow" aria-label="記事一覧">
+	<section class="max-w-[var(--measure)]" aria-label="記事一覧">
 		<PostList posts={posts} />
 	</section>
 </Layout>

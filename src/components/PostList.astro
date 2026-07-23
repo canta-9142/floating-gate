@@ -12,9 +12,9 @@ const { posts, headingLevel = 2 } = Astro.props;
 
 {
 	posts.length > 0 ? (
-		<ul class="post-list">
+		<ul class="m-0 list-none p-0">
 			{posts.map((post) => (
-				<li>
+				<li class="border-t border-site-faint last:border-b">
 					<PostListItem post={post} headingLevel={headingLevel} />
 				</li>
 			))}

@@ -4,31 +4,11 @@ import { SITE } from '../config';
 const year = new Date().getFullYear();
 ---
 
-<footer>
-	<div class="footer-inner">
-		<p>&copy; {year} {SITE.author}</p>
-		<p><a href="/rss.xml">RSS</a> · 作ったものと学んだことの記録</p>
+<footer class="border-t border-site-faint text-[0.82rem] text-site-muted">
+	<div
+		class="mx-auto flex w-full max-w-[var(--wide)] flex-wrap justify-between gap-x-6 gap-y-1 px-4 py-7 sm:px-6 xl:px-0"
+	>
+		<p class="m-0">&copy; {year} {SITE.author}</p>
+		<p class="m-0"><a href="/rss.xml">RSS</a> · 作ったものと学んだことの記録</p>
 	</div>
 </footer>
-
-<style>
-	footer {
-		border-top: 1px solid var(--faint);
-		color: var(--muted);
-		font-size: 0.82rem;
-	}
-
-	.footer-inner {
-		display: flex;
-		flex-wrap: wrap;
-		justify-content: space-between;
-		gap: 0.25rem 1.5rem;
-		width: min(calc(100% - 2rem), var(--wide));
-		margin-inline: auto;
-		padding-block: 1.75rem;
-	}
-
-	p {
-		margin: 0;
-	}
-</style>

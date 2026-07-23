@@ -5,10 +5,12 @@ import Layout from '../layouts/Layout.astro';
 ---
 
 <Layout title="About" description="Floating-Gate.com と、このブログを書いている人について。">
-	<article class="article">
-		<header class="page-header">
-			<h1>About</h1>
-			<p>このブログと、書いている人について。</p>
+	<article class="max-w-[var(--measure)]">
+		<header class="mb-12 max-w-[var(--measure)]">
+			<h1 class="mt-0 mb-3 text-[clamp(2rem,6vw,3rem)] leading-[1.15] font-semibold tracking-[-0.035em]">
+				About
+			</h1>
+			<p class="m-0 text-[1.075rem] text-site-muted">このブログと、書いている人について。</p>
 		</header>
 
 		<div class="prose">

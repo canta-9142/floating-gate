@@ -7,7 +7,7 @@ type: Project
 tags:
   - analog
   - amplifier
-draft: false
+draft: true
 featured: true
 ---
 

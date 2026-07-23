@@ -32,16 +32,20 @@ const projects = (await getSortedProjects()).filter((project) =>
 	updatedAt={post.data.updatedAt}
 	tags={post.data.tags}
 >
-	<article class="article">
-		<header class="article-header">
-			<h1>{post.data.title}</h1>
-			<p class="article-summary">{post.data.description}</p>
-			<ArticleMetadata
-				publishedAt={post.data.publishedAt}
-				updatedAt={post.data.updatedAt}
-				type={post.data.type}
-			/>
-			<TagList tags={post.data.tags} />
+	<article class="max-w-[var(--measure)]">
+		<header class="mb-12">
+			<h1 class="mt-0 mb-3 text-[clamp(2rem,6vw,3rem)] leading-[1.15] font-semibold tracking-[-0.035em]">
+				{post.data.title}
+			</h1>
+			<p class="m-0 text-[1.075rem] text-site-muted">{post.data.description}</p>
+			<div class="mt-3.5">
+				<ArticleMetadata
+					publishedAt={post.data.publishedAt}
+					updatedAt={post.data.updatedAt}
+					type={post.data.type}
+				/>
+			</div>
+			<div class="mt-3.5"><TagList tags={post.data.tags} /></div>
 		</header>
 		<ProseLayout>
 			<Content />
@@ -50,8 +54,11 @@ const projects = (await getSortedProjects()).filter((project) =>
 
 	{
 		projects.length > 0 && (
-			<aside class="related-content article" aria-labelledby="related-projects">
-				<h2 id="related-projects">関連する制作物</h2>
+			<aside
+				class="mt-16 max-w-[var(--measure)] border-t border-site-faint pt-6"
+				aria-labelledby="related-projects"
+			>
+				<h2 class="mt-0 mb-3 text-lg font-semibold" id="related-projects">関連する制作物</h2>
 				<ProjectList projects={projects} headingLevel={3} />
 			</aside>
 		)

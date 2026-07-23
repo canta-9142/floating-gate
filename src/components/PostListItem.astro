@@ -12,13 +12,18 @@ const { post, headingLevel = 2 } = Astro.props;
 const Heading = headingLevel === 2 ? 'h2' : 'h3';
 ---
 
-<article class="post-list-item">
+<article class="py-6">
 	<ArticleMetadata
 		publishedAt={post.data.publishedAt}
 		updatedAt={post.data.updatedAt}
 		type={post.data.type}
 	/>
-	<Heading><a href={`/posts/${post.id}/`}>{post.data.title}</a></Heading>
-	<p class="item-description">{post.data.description}</p>
+	<Heading class="mt-1 mb-1.5 text-xl leading-snug font-semibold">
+		<a
+			class="text-site-text no-underline hover:text-site-accent-strong hover:underline"
+			href={`/posts/${post.id}/`}>{post.data.title}</a
+		>
+	</Heading>
+	<p class="mt-1.5 mb-3 text-site-muted">{post.data.description}</p>
 	<TagList tags={post.data.tags} />
 </article>

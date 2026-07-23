@@ -10,42 +10,54 @@ const featuredProjects = (await getSortedProjects()).filter(({ data }) => data.f
 ---
 
 <Layout>
-	<header class="home-intro">
-		<h1>Floating-Gate.com</h1>
-		<p>{PROFILE.introduction}</p>
+	<header class="mb-12 max-w-[var(--measure)] md:mb-20">
+		<h1
+			class="mt-0 mb-3.5 text-[clamp(2rem,7vw,3.25rem)] leading-[1.1] font-semibold tracking-[0.015em]"
+		>
+			Floating-Gate.com
+		</h1>
+		<p class="m-0 text-[1.05rem] text-site-muted">{PROFILE.introduction}</p>
 	</header>
 
-	<div class="home-grid">
+	<div class="grid grid-cols-1 items-start gap-12 md:grid-cols-[minmax(0,2.2fr)_minmax(14rem,1fr)] md:gap-16 lg:gap-20">
 		<section aria-labelledby="latest-posts">
-			<div class="section-heading">
-				<h2 id="latest-posts">最新の記事</h2>
-				<a href="/posts/">記事一覧を見る</a>
+			<div class="mb-2 flex items-baseline justify-between gap-4">
+				<h2 class="m-0 text-xl font-semibold tracking-[-0.01em]" id="latest-posts">最新の記事</h2>
+				<a class="text-sm whitespace-nowrap" href="/posts/">記事一覧を見る</a>
 			</div>
 			<PostList posts={posts} headingLevel={3} />
 		</section>
 
-		<aside class="home-sidebar" aria-label="ブログについて">
+		<aside
+			class="grid gap-10 border-t border-site-faint pt-8 md:border-t-0 md:border-l md:pt-0 md:pl-6"
+			aria-label="ブログについて"
+		>
 			<section>
-				<h2>このブログについて</h2>
-				<p>電子回路とソフトウェアを行き来しながら、作ったものと学んだことを記録しています。</p>
+				<h2 class="mt-0 mb-2.5 text-base font-semibold">このブログについて</h2>
+				<p class="mt-0 mb-3 text-sm text-site-muted">
+					電子回路とソフトウェアを行き来しながら、作ったものと学んだことを記録しています。
+				</p>
 				<a href="/about/">詳しい自己紹介</a>
 			</section>
 
 			{
 				featuredProjects.length > 0 && (
 					<section>
-						<h2>いま見てほしい制作物</h2>
-						<ul class="plain-list featured-projects">
+						<h2 class="mt-0 mb-2.5 text-base font-semibold">いま見てほしい制作物</h2>
+						<ul class="m-0 list-none p-0">
 							{featuredProjects.map((project) => (
-								<li>
-									<a href={`/projects/${project.id}/`}>{projectTitle(project)}</a>
+								<li class="mt-4 first:mt-0">
+									<a
+										class="font-semibold text-site-text no-underline hover:text-site-accent-strong hover:underline"
+										href={`/projects/${project.id}/`}>{projectTitle(project)}</a
+									>
 									<div>
 										<ProjectStatus status={project.data.status} />
 									</div>
 								</li>
 							))}
 						</ul>
-						<p><a href="/projects/">制作物の一覧を見る</a></p>
+						<p class="mt-3 mb-0"><a href="/projects/">制作物の一覧を見る</a></p>
 					</section>
 				)
 			}

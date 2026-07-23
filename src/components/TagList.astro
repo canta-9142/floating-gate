@@ -8,9 +8,9 @@ const { tags = [] } = Astro.props;
 
 {
 	tags.length > 0 && (
-		<ul class="tag-list" aria-label="タグ">
+		<ul class="m-0 flex list-none flex-wrap gap-x-3 gap-y-1 p-0 text-[0.82rem]" aria-label="タグ">
 			{tags.map((tag) => (
-				<li>{tag}</li>
+				<li class="text-site-muted before:text-site-accent before:content-['#']">{tag}</li>
 			))}
 		</ul>
 	)
