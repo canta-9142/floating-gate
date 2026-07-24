@@ -603,6 +603,16 @@ button:disabled {
         scrollbar-width: thin;
     }
 
+    .filter-panel {
+        position: fixed !important;
+        top: 100px !important;
+        right: 12px !important;
+        width: min(360px, calc(100vw - 24px)) !important;
+        max-height: calc(100vh - 112px);
+        max-height: calc(100dvh - 112px);
+        overflow-y: auto;
+    }
+
     .viewport {
         height: calc(100vh - 104px);
     }
