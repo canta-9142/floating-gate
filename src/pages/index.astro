@@ -35,7 +35,7 @@ const featuredProjects = (await getSortedProjects()).filter(({ data }) => data.f
 			<section>
 				<h2 class="mt-0 mb-2.5 text-base font-semibold">このブログについて</h2>
 				<p class="mt-0 mb-3 text-sm text-site-muted">
-					電子回路とソフトウェアを行き来しながら、作ったものと学んだことを記録しています。
+					ソフトウェアとか電子回路とか。
 				</p>
 				<a href="/about/">詳しい自己紹介</a>
 			</section>
@@ -49,8 +49,8 @@ const featuredProjects = (await getSortedProjects()).filter(({ data }) => data.f
 								<li class="mt-4 first:mt-0">
 									<a
 										class="font-semibold text-site-text no-underline hover:text-site-accent-strong hover:underline"
-										href={`/projects/${project.id}/`}>{projectTitle(project)}</a
-									>
+										href={`/projects/${project.id}/`}>{projectTitle(project)}</a>
+
 									<div>
 										<ProjectStatus status={project.data.status} />
 									</div>

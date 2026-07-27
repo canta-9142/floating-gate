@@ -1,5 +1,7 @@
 ---
 import ExternalLink from '../components/ExternalLink.astro';
+import githubLogo from '../assets/profile/github-invertocat.svg';
+import mailIcon from '../assets/profile/mail.svg';
 import { PROFILE } from '../config';
 import Layout from '../layouts/Layout.astro';
 ---
@@ -31,8 +33,35 @@ import Layout from '../layouts/Layout.astro';
 			</p>
 
 			<h2>外部プロフィール</h2>
-			<ul>
-				<li><ExternalLink href={PROFILE.github}>GitHub</ExternalLink></li>
+			<ul class="m-0 grid list-none grid-cols-1 gap-4 p-0 sm:grid-cols-2">
+				<li class="m-0">
+					<ExternalLink href={PROFILE.github}>
+						<span slot="image" class="flex h-36 items-center justify-center">
+							<img
+								class="!h-24 !w-24"
+								src={githubLogo.src}
+								alt=""
+								width={githubLogo.width}
+								height={githubLogo.height}
+							/>
+						</span>
+						GitHub
+					</ExternalLink>
+				</li>
+				<li class="m-0">
+					<ExternalLink href={PROFILE.email}>
+						<span slot="image" class="flex h-36 items-center justify-center">
+							<img
+								class="!h-24 !w-24"
+								src={mailIcon.src}
+								alt=""
+								width={mailIcon.width}
+								height={mailIcon.height}
+							/>
+						</span>
+						メール
+					</ExternalLink>
+				</li>
 			</ul>
 		</div>
 	</article>

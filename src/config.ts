@@ -1,13 +1,14 @@
 export const SITE = {
 	title: 'Floating-Gate.com',
 	description:
-		'電子回路とソフトウェアを行き来しながら、作ったものと学んだことを記録する個人ブログ。',
+		'しがない高専生の個人ブログ。',
 	author: 'Kanta IMAI',
 };
 
 export const PROFILE = {
 	introduction:
-		'電子工学を学びながら、回路、組み込みシステム、ソフトウェア、Linuxなどを触っています。作ったものや、途中で考えたことを記録しています。',
+		'しがない高専生の個人ブログ。',
+	email: 'mailto:contact@floating-gate.com',
 	github: 'https://github.com/canta-9142',
 };
 

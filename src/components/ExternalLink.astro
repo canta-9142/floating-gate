@@ -1,13 +1,60 @@
 ---
-interface Props {
-	href: string;
+import type { ImageMetadata } from 'astro';
+
+interface LinkImage {
+	src: string | ImageMetadata;
+	alt: string;
 }
 
-const { href } = Astro.props;
+interface Props {
+	href: string;
+	image?: LinkImage;
+}
+
+const { href, image } = Astro.props;
+const hasImage = Boolean(image) || Astro.slots.has('image');
+const imageSrc = typeof image?.src === 'string' ? image.src : image?.src.src;
+const imageWidth = typeof image?.src === 'string' ? undefined : image?.src.width;
+const imageHeight = typeof image?.src === 'string' ? undefined : image?.src.height;
+const opensInNewTab = !href.startsWith('mailto:') && !href.startsWith('tel:');
 ---
 
-<a href={href} target="_blank" rel="noreferrer">
-	<slot />
-	<span class="ml-0.5 inline-block text-xs" aria-hidden="true">↗</span>
-	<span class="sr-only">（外部サイト、新しいタブで開きます）</span>
+<a
+	class:list={[
+		{
+			'group block w-full overflow-hidden border border-site-faint bg-site-surface no-underline transition-colors hover:border-site-accent':
+				hasImage,
+		},
+	]}
+	href={href}
+	target={opensInNewTab ? '_blank' : undefined}
+	rel={opensInNewTab ? 'noreferrer' : undefined}
+>
+	{
+		hasImage && (
+			<span class="block overflow-hidden border-b border-site-faint bg-white [&_img]:block [&_img]:h-auto [&_img]:w-full">
+				<slot name="image">
+					{image && (
+						<img
+							src={imageSrc}
+							alt={image.alt}
+							width={imageWidth}
+							height={imageHeight}
+							loading="lazy"
+							decoding="async"
+						/>
+					)}
+				</slot>
+			</span>
+		)
+	}
+	<span
+		class:list={[{ 'block px-4 py-3 font-semibold group-hover:underline': hasImage }]}
+	>
+		<slot />
+		{opensInNewTab && <span class="ml-0.5 inline-block text-xs" aria-hidden="true">↗</span>}
+	</span>
+	<span class="sr-only">
+		{opensInNewTab ? '（外部サイト、新しいタブで開きます）' : '（メールアプリを開きます）'}
+	</span>
 </a>
