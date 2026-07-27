@@ -11,6 +11,7 @@ import {
 	projectTitle,
 	toDateTime,
 } from '../../utils/content';
+import GiscusComments from '../../components/GiscusComments.astro';
 
 export async function getStaticPaths() {
 	const projects = await getCollection('projects');
@@ -116,4 +117,6 @@ const title = projectTitle(project);
 			</aside>
 		)
 	}
+
+	<GiscusComments />
 </Layout>

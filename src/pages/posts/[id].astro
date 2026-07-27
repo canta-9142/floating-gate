@@ -6,6 +6,7 @@ import ProseLayout from '../../components/ProseLayout.astro';
 import TagList from '../../components/TagList.astro';
 import Layout from '../../layouts/Layout.astro';
 import { getSortedProjects } from '../../utils/content';
+import GiscusComments from '../../components/GiscusComments.astro';
 
 export async function getStaticPaths() {
 	const posts = await getCollection('posts', ({ data }) => !import.meta.env.PROD || !data.draft);
@@ -63,4 +64,6 @@ const projects = (await getSortedProjects()).filter((project) =>
 			</aside>
 		)
 	}
+	
+	<GiscusComments />
 </Layout>
