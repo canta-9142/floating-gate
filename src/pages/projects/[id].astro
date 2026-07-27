@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets';
 import { getCollection, render, type CollectionEntry } from 'astro:content';
 import ExternalLink from '../../components/ExternalLink.astro';
 import PostList from '../../components/PostList.astro';
@@ -32,7 +33,7 @@ const title = projectTitle(project);
 <Layout
 	title={title}
 	description={project.data.description ?? `${title} の制作記録。`}
-	image={project.data.cover?.src}
+	image={project.data.cover?.src.src}
 >
 	<article class="max-w-[var(--measure)]">
 		<header class="mb-12">
@@ -88,12 +89,10 @@ const title = projectTitle(project);
 
 			{
 				project.data.cover && (
-					<img
+					<Image
 						class="mt-7 block h-auto w-full border border-site-faint bg-site-surface"
 						src={project.data.cover.src}
 						alt={project.data.cover.alt}
-						width="1200"
-						height="675"
 						loading="eager"
 						fetchpriority="high"
 					/>

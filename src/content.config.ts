@@ -18,7 +18,7 @@ const posts = defineCollection({
 
 const projects = defineCollection({
 	loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/projects' }),
-	schema: z.object({
+	schema: ({ image }) => z.object({
 		title: z.string().min(1).optional(),
 		description: z.string().min(1).optional(),
 		status: z.enum(['Planning', 'In progress', 'Paused', 'Completed', 'Archived']).optional(),
@@ -30,7 +30,7 @@ const projects = defineCollection({
 		featured: z.boolean().default(false),
 		cover: z
 			.object({
-				src: z.string().min(1),
+				src: image(),
 				alt: z.string().min(1),
 			})
 			.optional(),
