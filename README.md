@@ -8,7 +8,7 @@
 - Astro Content Collections
 - Tailwind CSS 4（Viteプラグイン）
 - Markdown / MDX
-- クライアントJavaScriptなし
+- クライアントJavaScriptなし (ブログ本体に限る、その他アプリはクライアントJSが必要な場合あり)
 
 記事は `src/content/posts/`、制作物は `src/content/projects/` で管理します。スキーマは `src/content.config.ts` にあります。
 
@@ -16,16 +16,3 @@
 
 余白、文字サイズ、レイアウトなどは各AstroコンポーネントのTailwindユーティリティで管理します。色トークン、基本リンクスタイル、Markdown本文のスタイルは `src/styles/global.css` にあります。
 
-## コマンド
-
-| コマンド | 内容 |
-| --- | --- |
-| `npm install` | 依存関係をインストール |
-| `npm run dev -- --background` | 開発サーバーをバックグラウンドで起動 |
-| `npm run astro -- dev status` | 開発サーバーの状態を確認 |
-| `npm run astro -- dev logs` | 開発サーバーのログを確認 |
-| `npm run astro -- dev stop` | 開発サーバーを停止 |
-| `npm run check` | Astro / TypeScript の型チェック |
-| `npm run build` | 本番用の静的サイトを生成 |
-
-lint、format、単体テスト用のツールは、現在は設定していません。
