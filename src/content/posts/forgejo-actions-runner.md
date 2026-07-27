@@ -1,13 +1,14 @@
 ---
 title: Forgejo Actions Runnerをセルフホストする
-description: Homelab上にRunnerを置いたときの構成と、権限を広げすぎないために決めたこと。
-publishedAt: 2025-05-11
-updatedAt: 2025-05-16
+description: Forgejo上にRunnerを置いた
+publishedAt: 2026-07-24
+updatedAt: 2026-07-27
 type: Note
 tags:
   - linux
   - nixos
-  - homelab
+  - rock3b
+  - forgejo
 draft: false
 featured: false
 ---

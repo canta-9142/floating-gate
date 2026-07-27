@@ -1,8 +1,8 @@
 ---
 title: ROCK 3BにNixOSを導入した記録
-description: ARMボードへの導入で詰まった点と、再現できるところまでの構成を記録します。
-publishedAt: 2025-03-18
-updatedAt: 2025-04-02
+description: ARMボードへの導入で詰まった点と、再現できるところまで
+publishedAt: 2026-07-24
+updatedAt: 2026-07-27
 type: Log
 tags:
   - linux
@@ -12,7 +12,7 @@ draft: false
 featured: true
 ---
 
-ROCK 3Bを小さなサーバーとして使うため、NixOSを導入しました。完成した手順というより、起動までに確認したことのメモです。
+ROCK 3Bを小さなサーバーとして使うため、NixOSを導入しました。
 
 ## 試した構成
 

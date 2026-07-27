@@ -1,9 +1,9 @@
 ---
-title: ROCK 3B Homelab
-description: ARMボード上のNixOSで動かしている、小規模な自宅サーバーの構成記録。
+title: ROCK 3B に NixOS を導入する手順
+description: ARM SBC 上の NixOS
 status: In progress
-startedAt: 2025-01-06
-updatedAt: 2025-05-16
+startedAt: 2026-07-24
+updatedAt: 2026-07-27
 technologies:
   - ROCK 3B
   - NixOS
@@ -15,22 +15,26 @@ relatedPosts:
   - forgejo-actions-runner
 ---
 
-## 何を作ろうとしているか
+## Radxa ROCK 3B について
 
-ソースコードの保管や小さなWebサイトのビルドに使える、自宅内のサーバーです。運用自体をLinuxとネットワークの練習にしています。
+Radxaから出ているSBCの一つです。
 
-## 設計方針
+CPUにはRockchip RK3568を搭載しており、4コアのCortex-A55とMali-G52 GPUを備えています。
+通常のデスクトップ用途で使うには少し物足りないですが、静的なコンテンツを配信するサーバーや、軽量なCI/CD環境を構築するには十分な性能です。
 
-NixOSの設定をリポジトリで管理し、壊したときに構成を追える状態を目指しています。一度にサービスを増やさず、バックアップと更新手順を確認してから追加します。
+なんといってもそのコスパが非常に魅力的で、私が購入したRadxaの公式ストアではRAM 8GBのモデルが13,000円程度で販売されていました。
 
-## 現在の状態
+![ROCK 3BのAliExpressでの商品ページ](../../assets/projects/Screenshot_20260727-165634.png)
 
-ForgejoとActions Runnerが稼働しています。外部公開するサービスは限定し、管理画面は宅内ネットワークからだけアクセスできる構成です。
+https://a.aliexpress.com/_c4nvp3ob
 
-## 発生した問題
+(現在は在庫切れになっているみたいです)
 
-ARM向けイメージの起動とストレージ構成で何度かやり直しました。復旧手順はまだ手作業が残っています。
+## LinuxのARMボード対応
 
-## 次に行うこと
+Radxa ROCK 3Bは、Linuxカーネルのmainlineに対応しているとかなんとかで、Radxa公式から出ている Radxa OS を使わなくても一応動きます。
 
-設定データの定期バックアップを別媒体へ保存し、実際に復元できるか確認します。
+ただし、初回起動時に U-Boot の設定を変更する必要があり、Radxa OS で起動する必要があります。
+
+## 後日追記します...
+
