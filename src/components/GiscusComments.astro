@@ -1,0 +1,54 @@
+---
+type Props = {
+    title?: string;
+};
+
+const { title = "Comments" } = Astro.props;
+---
+
+<section class="comments" aria-labelledby="comments-title">
+    <h2 id="comments-title" class="comments__title">{title}</h2>
+
+    <div class="giscus">
+        <p class="comments__loading">Loading comments...</p>
+    </div>
+
+    <script 
+        is:inline
+        src="https://giscus.app/client.js"
+        data-repo="canta-9142/floating-gate-comments"
+        data-repo-id="R_kgDOTkerPA"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOTkerPM4DCCjY"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="preferred_color_scheme"
+        data-lang="ja"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async
+    ></script>
+</section>
+
+<style>
+    .comments {
+        margin-block-start: 4rem;
+        padding-block-start: 2rem;
+        border-block-start:1px solid var(--color-border, #d0d7de);
+    }
+    .comments__title {
+        margin: 0 0 1.5rem;
+        font-size: 1.5rem;
+    }
+    .comments__loading {
+        color: var(--color-text-muted, #656d76);
+        font-size: 0.9rem;
+    }
+    :global(.giscus),
+    :global(.giscus-frame) {
+        width: 100%;
+    }
+</style>
