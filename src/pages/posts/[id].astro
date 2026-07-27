@@ -1,12 +1,13 @@
 ---
 import { getCollection, render, type CollectionEntry } from 'astro:content';
 import ArticleMetadata from '../../components/ArticleMetadata.astro';
+import ContentColumn from '../../components/ContentColumn.astro';
+import GiscusComments from '../../components/GiscusComments.astro';
 import ProjectList from '../../components/ProjectList.astro';
 import ProseLayout from '../../components/ProseLayout.astro';
 import TagList from '../../components/TagList.astro';
 import Layout from '../../layouts/Layout.astro';
 import { getSortedProjects } from '../../utils/content';
-import GiscusComments from '../../components/GiscusComments.astro';
 
 export async function getStaticPaths() {
 	const posts = await getCollection('posts', ({ data }) => !import.meta.env.PROD || !data.draft);
@@ -33,7 +34,8 @@ const projects = (await getSortedProjects()).filter((project) =>
 	updatedAt={post.data.updatedAt}
 	tags={post.data.tags}
 >
-	<article class="max-w-[var(--measure)]">
+	<ContentColumn>
+	<article>
 		<header class="mb-12">
 			<h1 class="mt-0 mb-3 text-[clamp(2rem,6vw,3rem)] leading-[1.15] font-semibold tracking-[-0.035em]">
 				{post.data.title}
@@ -56,7 +58,7 @@ const projects = (await getSortedProjects()).filter((project) =>
 	{
 		projects.length > 0 && (
 			<aside
-				class="mt-16 max-w-[var(--measure)] border-t border-site-faint pt-6"
+				class="mt-16 border-t border-site-faint pt-6"
 				aria-labelledby="related-projects"
 			>
 				<h2 class="mt-0 mb-3 text-lg font-semibold" id="related-projects">関連する制作物</h2>
@@ -64,6 +66,7 @@ const projects = (await getSortedProjects()).filter((project) =>
 			</aside>
 		)
 	}
-	
+
 	<GiscusComments />
+	</ContentColumn>
 </Layout>

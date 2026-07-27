@@ -1,7 +1,9 @@
 ---
 import { Image } from 'astro:assets';
 import { getCollection, render, type CollectionEntry } from 'astro:content';
+import ContentColumn from '../../components/ContentColumn.astro';
 import ExternalLink from '../../components/ExternalLink.astro';
+import GiscusComments from '../../components/GiscusComments.astro';
 import PostList from '../../components/PostList.astro';
 import ProjectStatus from '../../components/ProjectStatus.astro';
 import ProseLayout from '../../components/ProseLayout.astro';
@@ -12,7 +14,6 @@ import {
 	projectTitle,
 	toDateTime,
 } from '../../utils/content';
-import GiscusComments from '../../components/GiscusComments.astro';
 
 export async function getStaticPaths() {
 	const projects = await getCollection('projects');
@@ -35,7 +36,8 @@ const title = projectTitle(project);
 	description={project.data.description ?? `${title} の制作記録。`}
 	image={project.data.cover?.src.src}
 >
-	<article class="max-w-[var(--measure)]">
+	<ContentColumn>
+	<article>
 		<header class="mb-12">
 			<ProjectStatus status={project.data.status} />
 			<h1 class="mt-1 mb-3 text-[clamp(2rem,6vw,3rem)] leading-[1.15] font-semibold tracking-[-0.035em]">
@@ -108,7 +110,7 @@ const title = projectTitle(project);
 	{
 		relatedPosts.length > 0 && (
 			<aside
-				class="mt-16 max-w-[var(--measure)] border-t border-site-faint pt-6"
+				class="mt-16 border-t border-site-faint pt-6"
 				aria-labelledby="related-posts"
 			>
 				<h2 class="mt-0 mb-3 text-lg font-semibold" id="related-posts">関連記事</h2>
@@ -118,4 +120,5 @@ const title = projectTitle(project);
 	}
 
 	<GiscusComments />
+	</ContentColumn>
 </Layout>

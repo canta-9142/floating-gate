@@ -1,4 +1,5 @@
 ---
+import ContentColumn from '../../components/ContentColumn.astro';
 import ProjectList from '../../components/ProjectList.astro';
 import Layout from '../../layouts/Layout.astro';
 import { getSortedProjects } from '../../utils/content';
@@ -7,7 +8,8 @@ const projects = await getSortedProjects();
 ---
 
 <Layout title="制作物" description="完成したものと、まだ途中にある制作物の記録。">
-	<header class="mb-12 max-w-[var(--measure)]">
+	<ContentColumn>
+	<header class="mb-12">
 		<h1 class="mt-0 mb-3 text-[clamp(2rem,6vw,3rem)] leading-[1.15] font-semibold tracking-[-0.035em]">
 			Projects
 		</h1>
@@ -15,7 +17,8 @@ const projects = await getSortedProjects();
 			完成したものだけでなく、設計中、実験中、いったん止めているものも置いています。
 		</p>
 	</header>
-	<section class="max-w-[var(--measure)]" aria-label="制作物一覧">
+	<section aria-label="制作物一覧">
 		<ProjectList projects={projects} />
 	</section>
+	</ContentColumn>
 </Layout>
