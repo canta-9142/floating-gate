@@ -9,6 +9,7 @@
     "dev": "astro dev",
     "build": "astro build",
     "check": "astro check",
+    "content:new": "node scripts/new-content.mjs",
     "preview": "astro preview",
     "astro": "astro"
   },
