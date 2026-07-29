@@ -10,7 +10,7 @@ import Layout from '../layouts/Layout.astro';
 <Layout title="About" description="Floating-Gate.com と、このブログを書いている人について。">
 	<ContentColumn>
 	<article>
-		<header class="mb-12 max-w-[var(--measure)]">
+		<header class="mb-12 max-w-(--measure)">
 			<h1 class="mt-0 mb-3 text-[clamp(2rem,6vw,3rem)] leading-[1.15] font-semibold tracking-[-0.035em]">
 				About
 			</h1>
@@ -40,7 +40,7 @@ import Layout from '../layouts/Layout.astro';
 					<ExternalLink href={PROFILE.github}>
 						<span slot="image" class="flex h-36 items-center justify-center">
 							<img
-								class="!h-24 !w-24"
+								class="h-24! w-24!"
 								src={githubLogo.src}
 								alt=""
 								width={githubLogo.width}
@@ -54,7 +54,7 @@ import Layout from '../layouts/Layout.astro';
 					<ExternalLink href={PROFILE.email}>
 						<span slot="image" class="flex h-36 items-center justify-center">
 							<img
-								class="!h-24 !w-24"
+								class="h-24! w-24!"
 								src={mailIcon.src}
 								alt=""
 								width={mailIcon.width}
