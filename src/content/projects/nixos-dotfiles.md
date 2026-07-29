@@ -1,6 +1,6 @@
 ---
 title: "ノートPCにNixOSとNiri+Noctaliaを導入した話"
-description: ""
+description: "NNNはいいぞ"
 status: "In progress"
 startedAt: 2026-07-28
 updatedAt: 2026-07-29
