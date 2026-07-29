@@ -6,12 +6,15 @@ SITE_ROOT=/srv/www/floating-gate
 RELEASES_DIR=${SITE_ROOT}/releases
 STAGING_ROOT=${SITE_ROOT}/.staging
 CURRENT_LINK=${SITE_ROOT}/current
+RELEASES_TO_KEEP=${DEPLOY_RELEASES_TO_KEEP:-5}
 
 SCRIPT_DIR=$(CDPATH='' cd -- "$(dirname -- "$0")" && pwd)
 REPOSITORY_ROOT=$(CDPATH='' cd -- "${SCRIPT_DIR}/../.." && pwd)
 
 staging_directory=""
 link_directory=""
+release_list_file=""
+removal_directory=""
 
 remove_temporary_directory() {
 	temporary_directory=$1
@@ -25,11 +28,97 @@ remove_temporary_directory() {
 	esac
 
 	if [ -d "$temporary_directory" ] && [ ! -L "$temporary_directory" ]; then
-		find "$temporary_directory" -depth -delete
+		find "$temporary_directory" -xdev -depth -delete
 	fi
 }
 
+remove_temporary_file() {
+	temporary_file=$1
+
+	case "$temporary_file" in
+		"${STAGING_ROOT}/"*) ;;
+		*)
+			echo "Refusing to clean an unexpected path: ${temporary_file:-<empty>}" >&2
+			return 1
+			;;
+	esac
+
+	if [ -f "$temporary_file" ] || [ -L "$temporary_file" ]; then
+		rm -f -- "$temporary_file"
+	fi
+}
+
+prune_old_releases() {
+	release_list_file=$(mktemp "${STAGING_ROOT}/releases.XXXXXXXX")
+
+	for candidate_release_directory in "${RELEASES_DIR}"/*; do
+		if [ ! -e "$candidate_release_directory" ] && [ ! -L "$candidate_release_directory" ]; then
+			continue
+		fi
+
+		candidate_release_name=${candidate_release_directory##*/}
+		case "$candidate_release_name" in
+			*[!0-9a-f]* | "") continue ;;
+		esac
+		case ${#candidate_release_name} in
+			40 | 64) ;;
+			*) continue ;;
+		esac
+
+		if [ ! -d "$candidate_release_directory" ] || [ -L "$candidate_release_directory" ]; then
+			echo "Skipping release candidate that is not a real directory: $candidate_release_directory" >&2
+			continue
+		fi
+
+		candidate_release_mtime=$(stat -c %Y -- "$candidate_release_directory")
+		printf '%s %s\n' "$candidate_release_mtime" "$candidate_release_name" >>"$release_list_file"
+	done
+
+	sort -rn -o "$release_list_file" "$release_list_file"
+	retained_release_count=1
+
+	while read -r _ candidate_release_name; do
+		if [ -z "$candidate_release_name" ] || [ "$candidate_release_name" = "$commit_sha" ]; then
+			continue
+		fi
+
+		if [ "$retained_release_count" -lt "$RELEASES_TO_KEEP" ]; then
+			retained_release_count=$((retained_release_count + 1))
+			continue
+		fi
+
+		candidate_release_directory=${RELEASES_DIR}/${candidate_release_name}
+		case "$candidate_release_directory" in
+			"${RELEASES_DIR}/"*) ;;
+			*)
+				echo "Refusing to remove an unsafe release path: $candidate_release_directory" >&2
+				exit 1
+				;;
+		esac
+
+		if [ ! -d "$candidate_release_directory" ] || [ -L "$candidate_release_directory" ]; then
+			echo "Release changed during cleanup; refusing to remove it: $candidate_release_directory" >&2
+			exit 1
+		fi
+
+		removal_directory=$(mktemp -d "${STAGING_ROOT}/remove.${candidate_release_name}.XXXXXXXX")
+		mv -T "$candidate_release_directory" "${removal_directory}/release"
+		find "$removal_directory" -xdev -depth -delete
+		removal_directory=""
+		echo "Removed old release $candidate_release_directory"
+	done <"$release_list_file"
+
+	remove_temporary_file "$release_list_file"
+	release_list_file=""
+}
+
 cleanup() {
+	if [ -n "$removal_directory" ]; then
+		remove_temporary_directory "$removal_directory"
+	fi
+	if [ -n "$release_list_file" ]; then
+		remove_temporary_file "$release_list_file"
+	fi
 	if [ -n "$link_directory" ]; then
 		remove_temporary_directory "$link_directory"
 	fi
@@ -42,6 +131,14 @@ trap cleanup EXIT
 trap 'exit 1' HUP INT TERM
 
 cd "$REPOSITORY_ROOT"
+
+case "$RELEASES_TO_KEEP" in
+	[1-9] | [1-9][0-9] | [1-9][0-9][0-9]) ;;
+	*)
+		echo "DEPLOY_RELEASES_TO_KEEP must be an integer from 1 to 999." >&2
+		exit 1
+		;;
+esac
 
 if [ ! -f dist/index.html ]; then
 	echo "Refusing to deploy: dist/index.html does not exist." >&2
@@ -147,3 +244,4 @@ if [ "$(readlink "$CURRENT_LINK")" != "releases/${commit_sha}" ]; then
 fi
 
 echo "Published commit $commit_sha"
+prune_old_releases

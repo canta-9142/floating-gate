@@ -35,4 +35,5 @@ jobs:
       - name: Publish release
         env:
           DEPLOY_COMMIT_SHA: ${{ github.sha }}
+          DEPLOY_RELEASES_TO_KEEP: '20'
         run: ./scripts/ci/deploy.sh
