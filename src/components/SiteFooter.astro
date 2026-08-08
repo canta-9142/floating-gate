@@ -9,6 +9,20 @@ const year = new Date().getFullYear();
 		class="mx-auto flex w-full max-w-[var(--wide)] flex-wrap justify-between gap-x-6 gap-y-1 px-4 py-7 sm:px-6 xl:px-0"
 	>
 		<p class="m-0">Copyright &copy; {year}  {SITE.author} - All rights reserved.</p>
-		<p class="m-0"><a href="/rss.xml">RSS</a> · 作ったものと学んだことの記録</p>
+		<p class="m-0 flex items-center gap-1.5">
+			<a
+				class="relative top-px inline-flex size-[18px] items-center justify-center text-neutral-600 no-underline hover:text-neutral-800 dark:text-neutral-400 dark:hover:text-neutral-300"
+				href="/rss.xml"
+				aria-label="RSSフィード"
+			>
+				<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+					<circle cx="5" cy="19" r="2"></circle>
+					<path d="M3 11a10 10 0 0 1 10 10h3A13 13 0 0 0 3 8v3Z"></path>
+					<path d="M3 4a17 17 0 0 1 17 17h3A20 20 0 0 0 3 1v3Z"></path>
+				</svg>
+			</a>
+			<span aria-hidden="true">·</span>
+			<span>Floating-Gate.com</span>
+		</p>
 	</div>
 </footer>
