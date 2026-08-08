@@ -2,6 +2,7 @@
 import type { CollectionEntry } from 'astro:content';
 import ArticleMetadata from './ArticleMetadata.astro';
 import TagList from './TagList.astro';
+import TitleText from './TitleText.astro';
 
 interface Props {
 	post: CollectionEntry<'posts'>;
@@ -21,7 +22,7 @@ const Heading = headingLevel === 2 ? 'h2' : 'h3';
 	<Heading class="mt-1 mb-1.5 text-xl leading-snug font-semibold">
 		<a
 			class="text-site-text no-underline hover:text-site-accent-strong hover:underline"
-			href={`/posts/${post.id}/`}>{post.data.title}</a
+			href={`/posts/${post.id}/`}><TitleText title={post.data.title} /></a
 		>
 	</Heading>
 	<p class="mt-1.5 mb-3 text-site-muted">{post.data.description}</p>

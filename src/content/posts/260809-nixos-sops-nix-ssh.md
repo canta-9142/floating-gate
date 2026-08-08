@@ -1,5 +1,5 @@
 ---
-title: "sops-nix と Home Manager で SSH を安全かつ宣言的に管理する"
+title: "sops-nix と Home Manager で<br>SSH を安全かつ宣言的に管理する"
 description: "サルでもわかるように解説"
 publishedAt: 2026-08-09
 updatedAt: 2026-08-09

@@ -1,5 +1,6 @@
 import type { APIRoute } from 'astro';
 import { SITE } from '../config';
+import { titleToPlainText } from '../utils/title';
 import { getPublishedPosts } from '../utils/content';
 
 function escapeXml(value: string) {
@@ -18,7 +19,7 @@ export const GET: APIRoute = async ({ site }) => {
 		.map((post) => {
 			const url = new URL(`/posts/${post.id}/`, base).href;
 			return `<item>
-        <title>${escapeXml(post.data.title)}</title>
+        <title>${escapeXml(titleToPlainText(post.data.title))}</title>
         <link>${url}</link>
         <guid isPermaLink="true">${url}</guid>
         <pubDate>${post.data.publishedAt.toUTCString()}</pubDate>

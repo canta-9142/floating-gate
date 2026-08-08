@@ -1,0 +1,17 @@
+---
+interface Props {
+	title: string;
+}
+
+const { title } = Astro.props;
+const lines = title.split(/<br\s*\/?>/gi);
+---
+
+{
+	lines.map((line, index) => (
+		<>
+			{index > 0 && <br />}
+			{line}
+		</>
+	))
+}

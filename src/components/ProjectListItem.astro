@@ -2,6 +2,7 @@
 import type { CollectionEntry } from 'astro:content';
 import { formatDate, projectTitle, toDateTime } from '../utils/content';
 import ProjectStatus from './ProjectStatus.astro';
+import TitleText from './TitleText.astro';
 
 interface Props {
 	project: CollectionEntry<'projects'>;
@@ -27,7 +28,7 @@ const Heading = headingLevel === 2 ? 'h2' : 'h3';
 	<Heading class="mt-1 mb-1.5 text-xl leading-snug font-semibold">
 		<a
 			class="text-site-text no-underline hover:text-site-accent-strong hover:underline"
-			href={`/projects/${project.id}/`}>{projectTitle(project)}</a
+			href={`/projects/${project.id}/`}><TitleText title={projectTitle(project)} /></a
 		>
 	</Heading>
 	{project.data.description && <p class="mt-1.5 mb-3 text-site-muted">{project.data.description}</p>}

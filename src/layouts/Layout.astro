@@ -2,6 +2,7 @@
 import SiteFooter from '../components/SiteFooter.astro';
 import SiteHeader from '../components/SiteHeader.astro';
 import { SITE } from '../config';
+import { titleToPlainText } from '../utils/title';
 import '../styles/global.css';
 
 interface Props {
@@ -23,7 +24,7 @@ const {
 	updatedAt,
 	tags = [],
 } = Astro.props;
-const pageTitle = title ? `${title} | ${SITE.title}` : SITE.title;
+const pageTitle = title ? `${titleToPlainText(title)} | ${SITE.title}` : SITE.title;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin);
 const imageURL = image ? new URL(image, Astro.site ?? Astro.url.origin) : undefined;
 ---

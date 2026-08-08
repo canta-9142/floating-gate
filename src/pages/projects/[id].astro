@@ -7,6 +7,7 @@ import GiscusComments from '../../components/GiscusComments.astro';
 import PostList from '../../components/PostList.astro';
 import ProjectStatus from '../../components/ProjectStatus.astro';
 import ProseLayout from '../../components/ProseLayout.astro';
+import TitleText from '../../components/TitleText.astro';
 import Layout from '../../layouts/Layout.astro';
 import {
 	formatDate,
@@ -41,7 +42,7 @@ const title = projectTitle(project);
 		<header class="mb-12">
 			<ProjectStatus status={project.data.status} />
 			<h1 class="mt-1 mb-3 text-[clamp(2rem,6vw,3rem)] leading-[1.15] font-semibold tracking-[-0.035em]">
-				{title}
+				<TitleText title={title} />
 			</h1>
 			{project.data.description && <p class="m-0 text-[1.075rem] text-site-muted">{project.data.description}</p>}
 
