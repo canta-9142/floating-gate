@@ -39,8 +39,8 @@
 	--alert-important-border: #bba5e9;
 	--alert-warning-border: #dbc16d;
 	--alert-caution-border: #e5a2a8;
-	--measure: 50rem;
-	--wide: 68rem;
+	--measure: 75rem;
+	--wide: 75rem;
 	font-synthesis: none;
 	text-rendering: optimizeLegibility;
 }
