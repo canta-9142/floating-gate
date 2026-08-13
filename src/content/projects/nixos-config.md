@@ -8,10 +8,12 @@ technologies:
   - "NixOS"
   - "Niri"
   - "Noctalia"
-repository: "https://github.com/canta-9142/nixos-dotfiles"
+repository: "https://github.com/canta-9142/nixos-config"
 featured: true
 ---
 
-## 制作中...
+# "NNN" (Niri + Noctalia + NixOS)
 
-dotfilesが煮詰まったら改めて記事にします。
+## NixOS
+
+NixOS
