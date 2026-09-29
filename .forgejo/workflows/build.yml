@@ -35,3 +35,13 @@ jobs:
 
       - name: Build Astro site
         run: ./scripts/ci/build.sh
+
+      - name: Verify isolation and intentionally fail
+        run: |
+          test ! -e /srv/www/floating-gate
+          test ! -S /var/run/docker.sock
+          test ! -S /run/podman/podman.sock
+          test "$(cat /sys/fs/cgroup/memory.max)" = 4294967296
+          test "$(cat /sys/fs/cgroup/cpu.max)" = '200000 100000'
+          echo 'Isolation and resource limits verified; intentional failure follows.'
+          exit 1
