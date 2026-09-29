@@ -1,0 +1,38 @@
+name: Build Web
+
+on:
+  push:
+    # main builds once in deploy.yml before publishing the same dist directory.
+    branches: [phase5-ci]
+  workflow_dispatch: {}
+
+concurrency:
+  group: floating-gate-build-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ryzen-web-build
+    defaults:
+      run:
+        shell: sh
+    timeout-minutes: 30
+    steps:
+      - name: Install Git for checkout
+        run: apk add --no-cache git
+
+      - name: Check out repository
+        # actions/checkout v4.2.2
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          github-server-url: https://git.floating-gate.com
+          persist-credentials: false
+
+      - name: Install dependencies
+        run: ./scripts/ci/install-dependencies.sh
+
+      - name: Build Astro site
+        run: ./scripts/ci/build.sh

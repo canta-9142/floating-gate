@@ -15,16 +15,27 @@ permissions:
 jobs:
   deploy:
     if: github.ref == 'refs/heads/main'
-    runs-on: node-22
+    runs-on: ryzen-web-build
+    container:
+      image: docker.io/library/node:22-alpine
+      volumes:
+        - /srv/www/floating-gate:/srv/www/floating-gate:rw
+    defaults:
+      run:
+        shell: sh
     timeout-minutes: 30
 
     steps:
+      - name: Install checkout and deployment tools
+        run: apk add --no-cache git coreutils findutils util-linux
+
       - name: Check out repository
         # actions/checkout v4.2.2; pinned for supply-chain stability.
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
         with:
           # The runner polls Forgejo on 127.0.0.1, which is not the host from inside the job container.
-          github-server-url: https://forgejo.floating-gate.com
+          github-server-url: https://git.floating-gate.com
+          persist-credentials: false
 
       - name: Install dependencies
         run: ./scripts/ci/install-dependencies.sh
