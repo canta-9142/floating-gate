@@ -27,7 +27,12 @@ jobs:
     timeout-minutes: 30
     steps:
       - name: Install Git for checkout
-        run: apk add --no-cache git
+        run: |
+          cat /etc/resolv.conf
+          ip route
+          nslookup dl-cdn.alpinelinux.org || true
+          nslookup dl-cdn.alpinelinux.org 1.1.1.1 || true
+          apk add --no-cache git
 
       - name: Check out repository
         # actions/checkout v4.2.2
