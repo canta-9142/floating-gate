@@ -19,6 +19,8 @@ jobs:
     # https://github.com/podman-container-tools/podman/issues/29805
     container:
       image: docker.io/library/node:22-alpine
+      # WARP's host-only loopback DNS servers are unreachable from job containers.
+      options: --dns=1.1.1.1 --dns=1.0.0.1
     defaults:
       run:
         shell: sh
