@@ -7,7 +7,7 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "build": "node -e \"throw new Error('Phase 6 intentional build failure')\"",
+    "build": "astro build",
     "check": "astro check",
     "content:new": "node scripts/new-content.mjs",
     "preview": "astro preview",
