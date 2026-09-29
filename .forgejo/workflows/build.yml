@@ -15,24 +15,13 @@ permissions:
 jobs:
   build:
     runs-on: ryzen-web-build
-    # Podman 5.8.7 cannot copy actions through Debian's absolute /var/run symlink.
-    # https://github.com/podman-container-tools/podman/issues/29805
-    container:
-      image: docker.io/library/node:22-alpine
-      # WARP's host-only loopback DNS servers are unreachable from job containers.
-      options: --dns=1.1.1.1 --dns=1.0.0.1
     defaults:
       run:
         shell: sh
     timeout-minutes: 30
     steps:
       - name: Install Git for checkout
-        run: |
-          cat /etc/resolv.conf
-          ip route
-          nslookup dl-cdn.alpinelinux.org || true
-          nslookup dl-cdn.alpinelinux.org 1.1.1.1 || true
-          apk add --no-cache git
+        run: apk add --no-cache git
 
       - name: Check out repository
         # actions/checkout v4.2.2
