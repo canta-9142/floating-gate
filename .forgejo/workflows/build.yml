@@ -15,8 +15,18 @@ permissions:
 jobs:
   build:
     runs-on: ryzen-web-build
+    # Podman 5.8.7 cannot copy actions through Debian's absolute /var/run symlink.
+    # https://github.com/podman-container-tools/podman/issues/29805
+    container:
+      image: docker.io/library/node:22-alpine
+    defaults:
+      run:
+        shell: sh
     timeout-minutes: 30
     steps:
+      - name: Install Git for checkout
+        run: apk add --no-cache git
+
       - name: Check out repository
         # actions/checkout v4.2.2
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
